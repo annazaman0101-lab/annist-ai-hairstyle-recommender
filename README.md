@@ -11,6 +11,23 @@ Instead of browsing hundreds of hairstyle images manually, users simply describe
 https://annist-ai-hairstyle-recommender-izpdhgmqjjgwi7m3mxcqqj.streamlit.app/
 
 ---
+## 📸 Screenshots
+
+### Home Page
+
+![Home Page](screenshots/home.png)
+
+---
+
+### AI Search Results
+
+![Search Results](screenshots/results.png)
+
+---
+
+### Recommendation Cards
+
+![Cards](screenshots/cards.png)
 
 ## 📂 GitHub Repository
 

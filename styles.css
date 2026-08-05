@@ -1,0 +1,1066 @@
+/* ============================================================================
+   ANNIST — Hair AI
+   Luxury editorial design system
+   Desktop-first, with tablet and mobile breakpoints.
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap');
+
+/* ---------------------------------------------------------------------------
+   1. TOKENS
+   Colours sampled directly from the reference artwork.
+------------------------------------------------------------------------- */
+:root {
+  /* Brand — wine */
+  --wine-900: #4C0A1B;
+  --wine-800: #5C1428;
+  --wine-700: #6B1F31;
+  --rose-600: #8E3B4F;
+
+  /* Brand — pink */
+  --pink-700: #E22C79;
+  --pink-600: #F0428A;
+  --pink-500: #F76BA0;
+  --pink-400: #FA9CC0;
+  --pink-300: #FBC4D6;
+  --pink-200: #FBDCE6;
+  --pink-100: #FDEDF2;
+  --pink-050: #FEF6F8;
+
+  /* Brand — gold */
+  --gold-600: #C98F2A;
+  --gold-500: #E0A63A;
+  --gold-300: #F7CB7F;
+
+  /* Ink */
+  --ink-900: #2B161D;
+  --ink-700: #3A2028;
+  --ink-500: #55424A;
+  --ink-400: #6F626A;
+  --ink-300: #8A8290;
+
+  /* Surfaces */
+  --bg: #FEFBFC;
+  --surface: #FFFFFF;
+  --surface-glass: rgba(255, 255, 255, 0.62);
+  --surface-glass-strong: rgba(255, 255, 255, 0.82);
+  --surface-tint: rgba(253, 237, 242, 0.55);
+  --hairline: rgba(240, 66, 138, 0.14);
+
+  /* Type */
+  --font-display: 'Playfair Display', 'Times New Roman', serif;
+  --font-body: 'Poppins', -apple-system, 'Segoe UI', sans-serif;
+  --font-script: 'Dancing Script', 'Brush Script MT', cursive;
+
+  --fs-hero: clamp(2.9rem, 5.4vw, 5.05rem);
+  --fs-script: clamp(2.1rem, 3.9vw, 3.7rem);
+  --fs-panel-title: clamp(1.35rem, 2.1vw, 2.05rem);
+  --fs-body: 0.955rem;
+  --fs-label: 0.94rem;
+  --fs-small: 0.8rem;
+
+  /* Radii */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-2xl: 36px;
+  --r-pill: 999px;
+
+  /* Shadows */
+  --sh-soft: 0 10px 30px rgba(200, 90, 130, 0.08);
+  --sh-card: 0 18px 44px rgba(190, 80, 125, 0.10);
+  --sh-panel: 0 26px 70px rgba(190, 80, 125, 0.13);
+  --sh-lift: 0 28px 60px rgba(190, 80, 125, 0.20);
+  --sh-cta: 0 14px 30px rgba(240, 66, 138, 0.34);
+  --sh-cta-lift: 0 20px 44px rgba(240, 66, 138, 0.44);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-fast: 0.18s var(--ease);
+  --t-base: 0.32s var(--ease);
+  --t-slow: 0.6s var(--ease);
+
+  /* Panel sizing (media queries retune these instead of repeating selectors) */
+  --panel-pad: 2.1rem 2.3rem 2.3rem;
+  --panel-radius: var(--r-2xl);
+  --card-pad: 1.05rem 1.05rem 1.15rem;
+  --card-radius: var(--r-xl);
+
+  /* Rhythm */
+  --gap-xs: 0.45rem;
+  --gap-sm: 0.85rem;
+  --gap-md: 1.5rem;
+  --gap-lg: 2.6rem;
+  --gap-xl: 4rem;
+}
+
+/* ---------------------------------------------------------------------------
+   2. STREAMLIT CHROME RESET
+------------------------------------------------------------------------- */
+#MainMenu,
+footer,
+header[data-testid="stHeader"],
+[data-testid="stToolbar"],
+[data-testid="stDecoration"],
+[data-testid="stStatusWidget"],
+[data-testid="manage-app-button"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+[data-testid="stAppViewContainer"] {
+  background: transparent !important;
+}
+
+.stApp {
+  background:
+    radial-gradient(1100px 620px at 78% -8%, rgba(251, 196, 214, 0.34) 0%, rgba(254, 251, 252, 0) 62%),
+    radial-gradient(760px 620px at -12% 46%, rgba(250, 156, 192, 0.24) 0%, rgba(254, 251, 252, 0) 60%),
+    radial-gradient(900px 500px at 50% 108%, rgba(251, 220, 230, 0.42) 0%, rgba(254, 251, 252, 0) 66%),
+    linear-gradient(178deg, #FFFFFF 0%, var(--bg) 40%, #FDF4F7 100%);
+  background-attachment: fixed;
+  font-family: var(--font-body);
+  color: var(--ink-500);
+  -webkit-font-smoothing: antialiased;
+}
+
+.block-container {
+  max-width: 1520px !important;
+  padding: 1.6rem 3.2rem 5rem !important;
+}
+
+/* Tighten Streamlit's default vertical rhythm; components own their spacing. */
+[data-testid="stVerticalBlock"] {
+  gap: 0.6rem;
+}
+
+[data-testid="stHorizontalBlock"] {
+  align-items: flex-start;
+}
+
+/* Kill the empty margin Streamlit reserves under bare markdown blocks. */
+[data-testid="stMarkdownContainer"] > :last-child {
+  margin-bottom: 0;
+}
+
+/* Streamlit pins an explicit pixel height on element containers from an early
+   measurement. Custom HTML grows past it once webfonts and aspect-ratio boxes
+   settle, so the next widget paints over the overflow. Markdown blocks size
+   themselves instead. Widgets are left alone. */
+[data-testid="element-container"]:has(> [data-testid="stMarkdown"]) {
+  height: auto !important;
+  min-height: fit-content !important;
+}
+
+/* ---------------------------------------------------------------------------
+   3. DECORATIVE BACKGROUND
+------------------------------------------------------------------------- */
+.annist-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.annist-bg span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+}
+
+.annist-bg span:nth-child(1) {
+  width: 520px; height: 520px;
+  top: -160px; right: -80px;
+  background: radial-gradient(circle, rgba(250, 156, 192, 0.55), transparent 70%);
+}
+
+.annist-bg span:nth-child(2) {
+  width: 420px; height: 420px;
+  top: 34%; left: -180px;
+  background: radial-gradient(circle, rgba(251, 196, 214, 0.55), transparent 70%);
+  animation: drift 18s var(--ease) infinite alternate;
+}
+
+.annist-bg span:nth-child(3) {
+  width: 460px; height: 460px;
+  bottom: -200px; left: 42%;
+  background: radial-gradient(circle, rgba(253, 237, 242, 0.9), transparent 70%);
+}
+
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(28px, -34px, 0); }
+}
+
+/* ---------------------------------------------------------------------------
+   4. LOGO
+------------------------------------------------------------------------- */
+.annist-logo {
+  position: relative;
+  z-index: 2;
+  display: block;
+  margin-bottom: 1.4rem;
+}
+
+.annist-logo img {
+  width: 158px;
+  height: auto;
+  display: block;
+}
+
+.annist-logo-fallback {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--wine-900);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.annist-logo-fallback small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  color: var(--gold-600);
+  margin-top: 0.4rem;
+  padding-left: 0.2em;
+}
+
+/* ---------------------------------------------------------------------------
+   5. HERO
+------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  z-index: 2;
+  padding-top: 0.4rem;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  font-weight: 500;
+  color: var(--rose-600);
+  margin-bottom: 0.55rem;
+  animation: rise 0.7s var(--ease) both;
+}
+
+.hero-eyebrow svg { flex: 0 0 auto; }
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.018em;
+  color: var(--wine-900);
+  margin: 0;
+  animation: rise 0.7s 0.06s var(--ease) both;
+}
+
+/* line-height:0 keeps the sparkle from inflating the second line's box. */
+.hero-title .spark-inline {
+  display: inline-block;
+  position: relative;
+  top: -0.46em;
+  line-height: 0;
+  margin-left: 0.24em;
+}
+
+.hero-script {
+  font-family: var(--font-script);
+  font-size: var(--fs-script);
+  font-weight: 600;
+  color: var(--pink-400);
+  line-height: 1;
+  margin: -0.36em 0 0 2.55em;
+  animation: rise 0.7s 0.14s var(--ease) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Hero info card ---------------------------------------------------------- */
+.hero-card {
+  position: relative;
+  display: flex;
+  gap: 1.35rem;
+  align-items: flex-start;
+  margin-top: 2rem;
+  padding: 1.7rem 1.9rem;
+  border-radius: var(--r-xl);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(253, 237, 242, 0.62));
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--sh-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: rise 0.7s 0.22s var(--ease) both;
+}
+
+.hero-card-badge {
+  flex: 0 0 auto;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(140deg, var(--pink-100), var(--pink-200));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9), 0 8px 18px rgba(240, 66, 138, 0.12);
+}
+
+.hero-card-body p {
+  font-size: var(--fs-body);
+  line-height: 1.78;
+  color: var(--ink-500);
+  margin: 0;
+}
+
+.hero-card-body hr {
+  border: 0;
+  border-top: 1px solid var(--hairline);
+  margin: 1.05rem 0;
+}
+
+/* Hero artwork ------------------------------------------------------------ */
+.hero-art {
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding-top: 0.5rem;
+}
+
+.hero-art img {
+  width: 100%;
+  height: auto;
+  display: block;
+  animation: float 9s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-14px); }
+}
+
+.hero-art-fallback {
+  aspect-ratio: 5 / 4;
+  border-radius: 50% 50% 46% 46%;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(251, 196, 214, 0.6), rgba(253, 237, 242, 0.35) 62%, transparent 72%);
+}
+
+/* Floating sparkles ------------------------------------------------------- */
+.spark-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.spark-field svg {
+  position: absolute;
+  animation: twinkle 3.6s ease-in-out infinite;
+}
+
+.spark-field svg:nth-child(1) { top: 12%; left: 6%;  animation-delay: 0s; }
+.spark-field svg:nth-child(2) { top: 44%; right: 9%; animation-delay: 0.9s; }
+.spark-field svg:nth-child(3) { bottom: 16%; left: 22%; animation-delay: 1.8s; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.86); }
+  50%      { opacity: 1;    transform: scale(1.1); }
+}
+
+/* ---------------------------------------------------------------------------
+   6. GLASS PANEL
+
+   Streamlit 1.37 puts data-testid="stVerticalBlockBorderWrapper" on EVERY
+   vertical block — columns and the page root included — not only on
+   st.container(border=True). Styling that test id directly would paint the
+   whole page as a card. So the treatment is scoped with :has() to a hidden
+   .anchor-panel marker that components.anchor() writes as the container's
+   first element. The `>` chain pins the exact depth, so only the immediate
+   wrapper matches and never its ancestors.
+------------------------------------------------------------------------- */
+.glass-panel,
+[data-testid="stVerticalBlockBorderWrapper"]:has(> div > [data-testid="stVerticalBlock"] > [data-testid="element-container"] .anchor-panel) {
+  position: relative;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  border-radius: var(--panel-radius) !important;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.88), rgba(253, 240, 245, 0.74)) !important;
+  box-shadow: var(--sh-panel) !important;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  padding: var(--panel-pad) !important;
+  transition: box-shadow var(--t-base), transform var(--t-base);
+}
+
+/* Result cards sit tighter and lift on hover. */
+[data-testid="stVerticalBlockBorderWrapper"]:has(> div > [data-testid="stVerticalBlock"] > [data-testid="element-container"] .anchor-style-card) {
+  border-radius: var(--card-radius) !important;
+  padding: var(--card-pad) !important;
+  box-shadow: var(--sh-card) !important;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"]:has(> div > [data-testid="stVerticalBlock"] > [data-testid="element-container"] .anchor-style-card):hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sh-lift) !important;
+}
+
+/* The details image panel is a frame, so it carries almost no padding. */
+[data-testid="stVerticalBlockBorderWrapper"]:has(> div > [data-testid="stVerticalBlock"] > [data-testid="element-container"] .anchor-detail-media) {
+  border-radius: var(--r-xl) !important;
+  padding: 0.85rem !important;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"]:has(> div > [data-testid="stVerticalBlock"] > [data-testid="element-container"] .anchor-detail-body) {
+  border-radius: var(--r-xl) !important;
+  padding: 2rem 2.1rem 2.2rem !important;
+}
+
+.panel-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-panel-title);
+  font-weight: 700;
+  color: var(--wine-900);
+  text-align: center;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin: 0 0 1.6rem;
+}
+
+/* ---------------------------------------------------------------------------
+   7. FIELD LABELS
+------------------------------------------------------------------------- */
+.field-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.55rem 0.1rem;
+}
+
+.field-label .icon {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-sm);
+  display: grid;
+  place-items: center;
+  background: var(--pink-050);
+  border: 1px solid var(--pink-200);
+  flex: 0 0 auto;
+}
+
+.field-label span {
+  font-family: var(--font-body);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--ink-700);
+  letter-spacing: -0.005em;
+}
+
+.field-label--spacer { visibility: hidden; }
+
+/* ---------------------------------------------------------------------------
+   8. SELECTS
+------------------------------------------------------------------------- */
+[data-testid="stSelectbox"] label { display: none !important; }
+
+div[data-baseweb="select"] > div {
+  background: var(--surface) !important;
+  border: 1px solid var(--pink-200) !important;
+  border-radius: var(--r-md) !important;
+  min-height: 50px !important;
+  padding: 0 0.55rem 0 0.85rem !important;
+  box-shadow: 0 2px 8px rgba(200, 90, 130, 0.05) !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.945rem !important;
+  color: var(--ink-700) !important;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+
+div[data-baseweb="select"] > div:hover {
+  border-color: var(--pink-300) !important;
+  box-shadow: 0 6px 18px rgba(240, 66, 138, 0.10) !important;
+}
+
+div[data-baseweb="select"] > div:focus-within {
+  border-color: var(--pink-500) !important;
+  box-shadow: 0 0 0 3px rgba(247, 107, 160, 0.16) !important;
+}
+
+div[data-baseweb="select"] div[data-baseweb="input"] input,
+div[data-baseweb="select"] [role="combobox"] {
+  font-family: var(--font-body) !important;
+  color: var(--ink-700) !important;
+}
+
+/* Placeholder text inside the closed control */
+div[data-baseweb="select"] > div > div:first-child {
+  color: var(--ink-300) !important;
+}
+
+div[data-baseweb="select"] svg {
+  color: var(--ink-300) !important;
+  fill: var(--ink-300) !important;
+}
+
+/* Dropdown popover */
+div[data-baseweb="popover"] ul,
+ul[data-testid="stVirtualDropdown"] {
+  background: rgba(255, 255, 255, 0.97) !important;
+  border: 1px solid var(--pink-200) !important;
+  border-radius: var(--r-lg) !important;
+  box-shadow: var(--sh-card) !important;
+  padding: 0.4rem !important;
+  backdrop-filter: blur(18px);
+}
+
+div[data-baseweb="popover"] li,
+ul[data-testid="stVirtualDropdown"] li {
+  font-family: var(--font-body) !important;
+  font-size: 0.92rem !important;
+  color: var(--ink-700) !important;
+  border-radius: var(--r-sm) !important;
+  margin: 1px 0 !important;
+  transition: background var(--t-fast), color var(--t-fast);
+}
+
+div[data-baseweb="popover"] li:hover,
+ul[data-testid="stVirtualDropdown"] li:hover,
+div[data-baseweb="popover"] li[aria-selected="true"] {
+  background: var(--pink-100) !important;
+  color: var(--wine-800) !important;
+}
+
+/* ---------------------------------------------------------------------------
+   9. TEXT INPUT
+------------------------------------------------------------------------- */
+[data-testid="stTextInput"] label { display: none !important; }
+
+.stTextInput div[data-baseweb="input"],
+.stTextInput div[data-baseweb="base-input"] {
+  background: var(--surface) !important;
+  border: 1px solid var(--pink-200) !important;
+  border-radius: var(--r-md) !important;
+  min-height: 50px !important;
+  box-shadow: 0 2px 8px rgba(200, 90, 130, 0.05) !important;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+
+.stTextInput div[data-baseweb="input"]:hover {
+  border-color: var(--pink-300) !important;
+}
+
+.stTextInput div[data-baseweb="input"]:focus-within {
+  border-color: var(--pink-500) !important;
+  box-shadow: 0 0 0 3px rgba(247, 107, 160, 0.16) !important;
+}
+
+.stTextInput input {
+  font-family: var(--font-body) !important;
+  font-size: 0.945rem !important;
+  color: var(--ink-700) !important;
+  background: transparent !important;
+  padding: 0.6rem 0.9rem !important;
+}
+
+.stTextInput input::placeholder {
+  color: var(--ink-300) !important;
+  opacity: 1;
+}
+
+/* Leading magnifier + trailing sparkle.
+   Streamlit cannot wrap a widget in a custom element, so these are painted as
+   background images on the input itself rather than absolutely positioned. */
+.stTextInput input {
+  padding-left: 3rem !important;
+  padding-right: 2.9rem !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-position: left 1rem center, right 1rem center !important;
+  background-size: 19px 19px, 17px 17px !important;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23F0428A' stroke-width='1.9' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='6.5'/%3E%3Cpath d='M16 16l4.5 4.5'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24'%3E%3Cpath d='M12 3l1.8 5.4 5.4 1.8-5.4 1.8L12 17.4l-1.8-5.4L4.8 10.2l5.4-1.8L12 3z' fill='%23FBC4D6'/%3E%3C/svg%3E") !important;
+}
+
+/* ---------------------------------------------------------------------------
+   10. BUTTONS
+------------------------------------------------------------------------- */
+.stButton > button {
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+  border-radius: var(--r-md) !important;
+  transition: transform var(--t-fast), box-shadow var(--t-base), background var(--t-base) !important;
+}
+
+.stButton > button:focus-visible {
+  outline: 3px solid rgba(247, 107, 160, 0.55) !important;
+  outline-offset: 2px !important;
+}
+
+/* Primary — the hero call to action */
+.stButton > button[kind="primary"] {
+  background: linear-gradient(90deg, var(--pink-700) 0%, var(--pink-600) 26%, var(--pink-500) 62%, var(--pink-400) 100%) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  font-size: 1.14rem !important;
+  letter-spacing: 0.005em;
+  padding: 0.95rem 1.4rem !important;
+  box-shadow: var(--sh-cta) !important;
+}
+
+.stButton > button[kind="primary"]:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sh-cta-lift) !important;
+  filter: saturate(1.06);
+}
+
+.stButton > button[kind="primary"]:active {
+  transform: translateY(0);
+}
+
+/* Secondary — card actions, back navigation */
+.stButton > button[kind="secondary"] {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: var(--wine-800) !important;
+  border: 1px solid var(--pink-200) !important;
+  font-size: 0.9rem !important;
+  padding: 0.62rem 1.1rem !important;
+  box-shadow: 0 4px 14px rgba(200, 90, 130, 0.07) !important;
+}
+
+.stButton > button[kind="secondary"]:hover {
+  background: var(--pink-050) !important;
+  border-color: var(--pink-400) !important;
+  color: var(--pink-700) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(240, 66, 138, 0.14) !important;
+}
+
+/* ---------------------------------------------------------------------------
+   11. RESULTS
+------------------------------------------------------------------------- */
+.results-head {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin: 3.4rem 0 2.8rem;
+}
+
+.results-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 2.6vw, 2.5rem);
+  font-weight: 600;
+  color: var(--wine-900);
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.015em;
+}
+
+.results-head p {
+  font-size: 0.95rem;
+  color: var(--ink-400);
+  margin: 0;
+}
+
+.search-notice {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--rose-600);
+  background: var(--pink-050);
+  border: 1px solid var(--pink-200);
+  border-radius: var(--r-pill);
+  padding: 0.55rem 1.2rem;
+  width: fit-content;
+  margin: -0.6rem auto 1.8rem;
+}
+
+.results-head em {
+  font-style: normal;
+  color: var(--pink-700);
+  font-weight: 500;
+}
+
+/* Card ------------------------------------------------------------------- */
+.style-card-media {
+  position: relative;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(150deg, var(--pink-100), var(--pink-200));
+  margin-bottom: 1.05rem;
+}
+
+.style-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--t-slow);
+}
+
+[data-testid="stVerticalBlockBorderWrapper"]:hover .style-card-media img {
+  transform: scale(1.06);
+}
+
+.style-card-media .placeholder,
+.detail-media .placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.score-pill {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  padding: 0.36rem 0.7rem;
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--pink-700);
+  box-shadow: 0 6px 16px rgba(190, 80, 125, 0.18);
+}
+
+.style-card-title {
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  font-weight: 600;
+  color: var(--wine-900);
+  line-height: 1.25;
+  margin: 0 0 0.55rem;
+}
+
+.style-card-desc {
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: var(--ink-400);
+  margin: 0 0 0.9rem;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0;
+}
+
+/* Streamlit measures a markdown element-container slightly short of its real
+   content, so the next widget can paint over the tail of the card. Spacing the
+   button from its own side is deterministic and does not depend on that
+   measurement being right. */
+[data-testid="stVerticalBlockBorderWrapper"]:has(> div > [data-testid="stVerticalBlock"] > [data-testid="element-container"] .anchor-style-card) .stButton {
+  margin-top: 1.75rem;
+}
+
+/* Badges ------------------------------------------------------------------ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.32rem 0.72rem;
+  border-radius: var(--r-pill);
+  font-size: 0.755rem;
+  font-weight: 600;
+  letter-spacing: 0.012em;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.badge--category {
+  background: var(--pink-100);
+  color: var(--pink-700);
+  border-color: var(--pink-200);
+}
+
+.badge--length {
+  background: rgba(247, 203, 127, 0.18);
+  color: var(--gold-600);
+  border-color: rgba(224, 166, 58, 0.3);
+}
+
+.badge--easy {
+  background: rgba(126, 200, 160, 0.16);
+  color: #2F7D57;
+  border-color: rgba(126, 200, 160, 0.38);
+}
+
+.badge--medium {
+  background: rgba(240, 168, 96, 0.18);
+  color: #A2601C;
+  border-color: rgba(240, 168, 96, 0.4);
+}
+
+.badge--hard {
+  background: rgba(240, 100, 120, 0.16);
+  color: #B02744;
+  border-color: rgba(240, 100, 120, 0.36);
+}
+
+/* Empty state ------------------------------------------------------------- */
+.empty-state {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 4rem 2rem;
+  border-radius: var(--r-2xl);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px dashed var(--pink-200);
+  margin-top: 2.4rem;
+}
+
+.empty-state h3 {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  color: var(--wine-900);
+  margin: 1rem 0 0.5rem;
+  font-weight: 600;
+}
+
+.empty-state p {
+  font-size: 0.93rem;
+  color: var(--ink-400);
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   12. DETAILS PAGE
+------------------------------------------------------------------------- */
+.detail-media {
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(150deg, var(--pink-100), var(--pink-200));
+}
+
+.detail-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.detail-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pink-600);
+  margin: 0 0 0.55rem;
+}
+
+.detail-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.018em;
+  color: var(--wine-900);
+  margin: 0 0 1.15rem;
+}
+
+.detail-section-title {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-300);
+  margin: 1.7rem 0 0.65rem;
+}
+
+.detail-desc {
+  font-size: var(--fs-body);
+  line-height: 1.85;
+  color: var(--ink-500);
+  margin: 0;
+}
+
+/* Match score ------------------------------------------------------------- */
+.match-score {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1.15rem 1.35rem;
+  border-radius: var(--r-lg);
+  background: linear-gradient(120deg, rgba(253, 237, 242, 0.85), rgba(255, 255, 255, 0.6));
+  border: 1px solid var(--pink-200);
+  margin: 0 0 0.4rem;
+}
+
+.match-ring {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  background: conic-gradient(var(--pink-600) calc(var(--pct) * 1%), var(--pink-200) 0);
+}
+
+.match-ring i {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  font-family: var(--font-display);
+  font-size: 1.06rem;
+  font-weight: 700;
+  color: var(--wine-900);
+}
+
+.match-copy strong {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-700);
+  margin-bottom: 0.18rem;
+}
+
+.match-copy span {
+  font-size: 0.84rem;
+  color: var(--ink-400);
+}
+
+/* Keyword chips ----------------------------------------------------------- */
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.chip {
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--pink-200);
+  font-size: 0.8rem;
+  color: var(--ink-500);
+  transition: border-color var(--t-fast), color var(--t-fast), transform var(--t-fast);
+}
+
+.chip:hover {
+  border-color: var(--pink-400);
+  color: var(--pink-700);
+  transform: translateY(-1px);
+}
+
+/* ---------------------------------------------------------------------------
+   13. UTILITIES
+------------------------------------------------------------------------- */
+.anchor { display: none; }
+
+.spacer-sm { height: 0.85rem; }
+.spacer-md { height: 1.8rem; }
+.spacer-lg { height: 3rem; }
+
+.fade-in { animation: rise 0.55s var(--ease) both; }
+
+/* ---------------------------------------------------------------------------
+   14. RESPONSIVE — TABLET
+------------------------------------------------------------------------- */
+@media (max-width: 1180px) {
+  .block-container { padding: 1.4rem 2rem 4rem !important; }
+
+  :root {
+    --panel-pad: 1.7rem 1.6rem 1.9rem;
+    --panel-radius: var(--r-xl);
+  }
+
+  .hero-script { margin-left: 1.6em; }
+  .hero-card { padding: 1.4rem 1.5rem; gap: 1.1rem; }
+  .hero-card-badge { width: 52px; height: 52px; }
+  .hero-art img { max-width: 560px; margin: 0 auto; }
+}
+
+/* ---------------------------------------------------------------------------
+   15. RESPONSIVE — MOBILE
+------------------------------------------------------------------------- */
+@media (max-width: 760px) {
+  .block-container { padding: 1rem 1.1rem 3.5rem !important; }
+
+  :root {
+    --fs-hero: 2.6rem;
+    --fs-script: 2rem;
+    --fs-panel-title: 1.28rem;
+    --panel-pad: 1.35rem 1.15rem 1.5rem;
+    --panel-radius: var(--r-lg);
+    --card-pad: 0.9rem 0.9rem 1rem;
+  }
+
+  /* Streamlit stacks columns automatically below this width. */
+  [data-testid="column"] { width: 100% !important; }
+
+  .annist-logo img { width: 124px; }
+
+  .hero-script { margin: -0.25em 0 0 0.5em; }
+
+  .hero-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.35rem 1.2rem;
+  }
+
+  .hero-card-body hr { margin: 0.85rem 0; }
+
+  .panel-title { font-size: 1.28rem; gap: 0.4rem; margin-bottom: 1.15rem; }
+
+  .stButton > button[kind="primary"] {
+    font-size: 1rem !important;
+    padding: 0.85rem 1rem !important;
+  }
+
+  .match-score { flex-direction: column; text-align: center; gap: 0.8rem; }
+
+  .hero-art { display: none; }
+
+  .results-head { margin: 2.4rem 0 1.4rem; }
+}
+
+/* ---------------------------------------------------------------------------
+   16. ACCESSIBILITY
+------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+a:focus-visible,
+input:focus-visible,
+[role="combobox"]:focus-visible {
+  outline: 3px solid rgba(247, 107, 160, 0.55);
+  outline-offset: 2px;
+}

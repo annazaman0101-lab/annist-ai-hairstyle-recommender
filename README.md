@@ -1,43 +1,76 @@
-# ✨ ANNIST — AI Hairstyle Recommendation System
+# ✨ ANNIST – AI Hairstyle Recommendation System
 
-ANNIST is a premium AI-powered hairstyle recommendation application built with **Streamlit 1.37.1**.
+ANNIST is an AI-powered hairstyle recommendation system that helps users discover hairstyles based on natural language descriptions.
 
-Using semantic search powered by **Sentence Transformers (BAAI/bge-small-en-v1.5)**, ANNIST recommends hairstyles based on:
-
-- Occasion
-- Hair Length
-- Skill Level
-- Natural Language Search
+Instead of browsing hundreds of hairstyle images manually, users simply describe the hairstyle they are looking for, and ANNIST uses semantic search with transformer embeddings to recommend the most relevant hairstyles.
 
 ---
 
-# Features
+## 🌐 Live Demo
 
-✓ AI semantic search
-
-✓ Modern luxury UI
-
-✓ Fully responsive
-
-✓ Glassmorphism
-
-✓ Beautiful editorial typography
-
-✓ Smart filtering
-
-✓ AI ranking
-
-✓ Automatic fallback matching
-
-✓ Local image support
-
-✓ Streamlit 1.37.1 compatible
-
-✓ Python 3.11 compatible
+https://annist-ai-hairstyle-recommender-izpdhgmqjjgwi7m3mxcqqj.streamlit.app/
 
 ---
 
-# Project Structure
+## 📂 GitHub Repository
+
+https://github.com/annazaman0101-lab/annist-ai-hairstyle-recommender
+
+---
+
+## 📌 Features
+
+- AI-powered hairstyle recommendations
+- Semantic search using Sentence Transformers
+- Natural language search
+- Occasion filtering
+- Hair length filtering
+- Difficulty filtering
+- Responsive luxury Streamlit interface
+- Fast similarity search using cosine similarity
+- Image-based hairstyle gallery
+- Modern editorial UI design
+
+---
+
+## 🧠 AI Technologies Used
+
+- Sentence Transformers
+- all-MiniLM-L6-v2
+- Transformers
+- PyTorch
+- Cosine Similarity
+- Semantic Embeddings
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+
+- Streamlit 1.37.1
+- HTML
+- CSS
+
+### Backend
+
+- Python 3.11
+
+### Machine Learning
+
+- Sentence Transformers
+- Hugging Face Transformers
+- PyTorch
+- Scikit-learn
+
+### Data Processing
+
+- NumPy
+- Pandas
+
+---
+
+## 📁 Project Structure
 
 ```
 ANNIST/
@@ -48,42 +81,40 @@ ANNIST/
 ├── semantic_search.py
 ├── utils.py
 ├── generate_embeddings.py
-├── styles.css
 ├── requirements.txt
 │
 ├── assets/
 │   ├── logo.png
-│   └── hero.png
-│
-├── images/
-│   ├── hairstyle1.jpg
-│   ├── hairstyle2.jpg
-│   └── ...
+│   ├── background.png
+│   └── hero_illustration.png
 │
 ├── data/
 │   └── annist_dataset.csv
 │
-└── embeddings/
-    └── annist_embeddings.npy
+├── embeddings/
+│   └── annist_embeddings.npy
+│
+├── images/
+│   └── hairstyle images
+│
+└── README.md
 ```
 
 ---
 
-# Python Version
+## ⚙️ Installation
 
-Python 3.11
+Clone the repository
 
----
-
-# Streamlit Version
-
-```
-1.37.1
+```bash
+git clone https://github.com/annazaman0101-lab/annist-ai-hairstyle-recommender.git
 ```
 
----
+Move into the project
 
-# Installation
+```bash
+cd annist-ai-hairstyle-recommender
+```
 
 Create a virtual environment
 
@@ -91,9 +122,9 @@ Create a virtual environment
 python3.11 -m venv venv
 ```
 
-Activate
+Activate it
 
-macOS
+Mac/Linux
 
 ```bash
 source venv/bin/activate
@@ -105,35 +136,13 @@ Windows
 venv\Scripts\activate
 ```
 
-Install packages
+Install requirements
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-# Generate Embeddings
-
-Run only if
-
-- the dataset changes
-- embeddings are deleted
-- new hairstyles are added
-
-```bash
-python generate_embeddings.py
-```
-
-This creates
-
-```
-embeddings/annist_embeddings.npy
-```
-
----
-
-# Start ANNIST
+Run the application
 
 ```bash
 streamlit run app.py
@@ -141,119 +150,46 @@ streamlit run app.py
 
 ---
 
-# Dataset Requirements
+## 🔍 How It Works
 
-The CSV must contain the following columns
-
-```
-filename
-hairstyle_label
-category
-difficulty
-hair_length
-description
-keywords
-search_profile
-```
+1. User enters a hairstyle description.
+2. The query is converted into a semantic embedding using Sentence Transformers.
+3. Cosine similarity compares the query embedding with all hairstyle embeddings.
+4. Filters are applied based on:
+   - Occasion
+   - Hair Length
+   - Difficulty
+5. The top matching hairstyles are displayed with similarity scores.
 
 ---
 
-# Semantic Search
+## 📊 Dataset
 
-ANNIST uses
+The application uses a custom hairstyle dataset containing:
 
-```
-BAAI/bge-small-en-v1.5
-```
+- Hairstyle name
+- Description
+- Hair length
+- Occasion
+- Difficulty
+- Image filename
 
-through Sentence Transformers.
-
-Search is performed using
-
-- semantic similarity
-- occasion filtering
-- hair length filtering
-- difficulty filtering
-- weighted AI ranking
+Embeddings are generated offline using Sentence Transformers and stored as NumPy arrays for efficient retrieval.
 
 ---
 
-# Matching
+## 🚀 Future Improvements
 
-The final recommendation score is calculated using
-
-```
-40% Semantic Similarity
-
-30% Occasion
-
-20% Hair Length
-
-10% Skill Level
-```
+- Face shape detection
+- Hair colour recommendations
+- Image upload for hairstyle suggestions
+- Personalized user profiles
+- Hairstyle bookmarking
+- Mobile application
+- Multi-language support
 
 ---
 
-# Supported Skill Levels
+## 👨‍💻 Author
 
-```
-Easy
-
-Intermediate
-
-Advanced
-```
-
-Internally
-
-Easy
-
-and
-
-Beginner
-
-are treated as the same value.
-
----
-
-# Supported Hair Length
-
-```
-Short
-
-Medium
-
-Long
-```
-
----
-
-# Supported Occasions
-
-```
-Wedding
-
-Party
-
-Everyday
-```
-
----
-
-# Technologies
-
-- Streamlit 1.37.1
-- Python 3.11
-- Sentence Transformers
-- HuggingFace
-- PyTorch
-- NumPy
-- Pandas
-
----
-
-# Author
-
-ANNIST
-
-AI Hairstyle Recommendation System
+Developed as the final AI Bootcamp project.

@@ -11,23 +11,44 @@ Instead of browsing hundreds of hairstyle images manually, users simply describe
 https://annist-ai-hairstyle-recommender-izpdhgmqjjgwi7m3mxcqqj.streamlit.app/
 
 ---
-## 📸 Screenshots
+## 📸 Application Screenshots
 
-### Home Page
+### 🏠 Home Page
 
-![Home Page](screenshots/home.png)
+The ANNIST landing page provides a clean and modern interface for exploring AI-powered hairstyle recommendations.
 
----
-
-### AI Search Results
-
-![Search Results](screenshots/results.png)
+![ANNIST Home Page](screenshots/home.png)
 
 ---
 
-### Recommendation Cards
+### 🔍 Search Interface
 
-![Cards](screenshots/cards.png)
+Users can describe their desired hairstyle and refine recommendations using occasion, hair length, and skill-level filters.
+
+![ANNIST Search Interface](screenshots/search.png)
+
+---
+
+### 🤖 AI Recommendation Results
+
+ANNIST uses semantic search to recommend relevant hairstyles based on the user's preferences and displays matching hairstyle results.
+
+![ANNIST Recommendation Results](screenshots/result.png)
+
+### 🔍 Search Interface
+
+Users can describe the hairstyle they are looking for and refine their search using occasion, hair length, and difficulty filters.
+
+![Search interface with a pink-themed ANNIST dashboard showing a text query input field, occasion options, hair length and difficulty filters, and a vertical list of hairstyle suggestion cards for discovering hairstyles](screenshots/search.png)
+
+---
+
+### 🤖 AI Recommendation Results
+
+ANNIST uses semantic search to recommend the most relevant hairstyles based on the user's query, displaying AI match scores and hairstyle details.
+
+![Recommendation results page showing hairstyle cards with photo thumbnails, similarity score badges, hairstyle descriptions, and a pink editorial interface conveying an elegant polished mood](screenshots/result.png)
+
 
 ## 📂 GitHub Repository
 
